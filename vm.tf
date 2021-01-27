@@ -21,6 +21,9 @@ resource "azurerm_linux_virtual_machine" "azvm01" {
     storage_account_type = "Standard_LRS"
     caching              = "ReadWrite"
   }
+  tags = {
+    environment = "Development"
+  }
 }
 
 resource "azurerm_network_interface" "nic-azvm01" {
@@ -32,6 +35,9 @@ resource "azurerm_network_interface" "nic-azvm01" {
     name                          = "internal"
     subnet_id                     = azurerm_subnet.net-dev.id
     private_ip_address_allocation = "Dynamic"
+  }
+  tags = {
+    environment = "Development"
   }
 }
 
