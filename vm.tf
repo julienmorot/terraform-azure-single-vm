@@ -6,8 +6,10 @@ resource "azurerm_linux_virtual_machine" "azvm01" {
   admin_username                  = var.lnxuser
   admin_password                  = var.lnxpwd
   disable_password_authentication = false
+  #public_ip_addresses = azurerm_public_ip.ip-pub-azvm01 
   network_interface_ids = [
-    azurerm_network_interface.nic-azvm01.id,
+    azurerm_network_interface.nic-int-azvm01.id,
+    azurerm_network_interface.nic-pub-azvm01.id,
   ]
 
   source_image_reference {
@@ -26,8 +28,8 @@ resource "azurerm_linux_virtual_machine" "azvm01" {
   }
 }
 
-resource "azurerm_network_interface" "nic-azvm01" {
-  name                = "nic-azvm01"
+resource "azurerm_network_interface" "nic-int-azvm01" {
+  name                = "nic-int-azvm01"
   resource_group_name = azurerm_resource_group.rg-dev.name
   location            = var.location
 
@@ -41,3 +43,18 @@ resource "azurerm_network_interface" "nic-azvm01" {
   }
 }
 
+resource "azurerm_network_interface" "nic-pub-azvm01" {
+  name                = "nic-pub-azvm01"
+  resource_group_name = azurerm_resource_group.rg-dev.name
+  location            = var.location
+
+  ip_configuration {
+    name                          = "internal"
+    subnet_id                     = azurerm_subnet.net-dev.id
+    private_ip_address_allocation = "Dynamic"
+public_ip_address_id          = azurerm_public_ip.pip-azvm01.id
+  }
+  tags = {
+    environment = "Development"
+  }
+}
