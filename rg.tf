@@ -1,5 +1,5 @@
-resource "azurerm_resource_group" "rg-singlevm" {
-  name     = "rg-singlevm"
+resource "azurerm_resource_group" "rg-dev" {
+  name     = "rg-dev"
   location = var.location
 }
 
