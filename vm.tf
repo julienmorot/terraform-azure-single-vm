@@ -21,6 +21,11 @@ resource "azurerm_linux_virtual_machine" "azvm01" {
     storage_account_type = "Standard_LRS"
     caching              = "ReadWrite"
   }
+
+  boot_diagnostics {
+    storage_account_uri = azurerm_storage_account.sa-bootdiags.primary_blob_endpoint
+  }
+
   tags = {
     environment = "Development"
   }
