@@ -1,5 +1,5 @@
-resource "azurerm_network_security_group" "linuxserver" {
-  name                = "linuxserver"
+resource "azurerm_network_security_group" "nsg-linuxserver" {
+  name                = "nsg-linuxserver"
   location            = azurerm_resource_group.rg-dev.location
   resource_group_name = azurerm_resource_group.rg-dev.name
   security_rule {
@@ -15,7 +15,7 @@ resource "azurerm_network_security_group" "linuxserver" {
   }
 }
 
-resource "azurerm_network_interface_security_group_association" "ssh-pub-azvm01" {
-  network_interface_id      = azurerm_network_interface.nic-pub-azvm01.id
-  network_security_group_id = azurerm_network_security_group.linuxserver.id
+resource "azurerm_network_interface_security_group_association" "nsgassoc-azvm01" {
+  network_interface_id      = azurerm_network_interface.nic-azvm01.id
+  network_security_group_id = azurerm_network_security_group.nsg-linuxserver.id
 }
