@@ -1,8 +1,8 @@
 resource "azurerm_linux_virtual_machine" "azvm01" {
   name                            = "azvm01"
   resource_group_name             = azurerm_resource_group.rg-dev.name
-  location                        = var.location
-  size                            = "Standard_B1ls"
+  location                        = var.location[0]
+  size                            = var.sizing["dev"]
   admin_username                  = var.lnxuser
   admin_password                  = var.lnxpwd
   disable_password_authentication = false
@@ -30,7 +30,7 @@ resource "azurerm_linux_virtual_machine" "azvm01" {
 resource "azurerm_network_interface" "nic-azvm01" {
   name                = "nic-azvm01"
   resource_group_name = azurerm_resource_group.rg-dev.name
-  location            = var.location
+  location            = var.location[0]
 
   ip_configuration {
     name                          = "internal"
