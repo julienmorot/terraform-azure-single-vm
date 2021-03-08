@@ -12,7 +12,7 @@ variable "sizing" {
   type = map(string)
 
   default = {
-    dev = "Standard_B1ls"
+    dev  = "Standard_B1ls"
     prod = "Standard_B2s"
   }
 }

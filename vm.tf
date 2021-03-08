@@ -22,6 +22,8 @@ resource "azurerm_linux_virtual_machine" "azvm01" {
     caching              = "ReadWrite"
   }
 
+  custom_data = base64encode(data.template_file.azvm01-cloud-init.rendered)
+
   tags = {
     environment = "Development"
   }
@@ -41,4 +43,9 @@ resource "azurerm_network_interface" "nic-azvm01" {
   tags = {
     environment = "Development"
   }
+}
+
+
+data "template_file" "azvm01-cloud-init" {
+  template = file("azvm01-postinstall.sh")
 }
