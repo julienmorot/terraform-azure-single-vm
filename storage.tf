@@ -2,7 +2,7 @@ resource "azurerm_managed_disk" "disk01-azvm01" {
   name                 = "disk01-azvm01"
   location             = azurerm_resource_group.rg-dev.location
   create_option        = "Empty"
-  disk_size_gb         = 9
+  disk_size_gb         = 8
   resource_group_name  = azurerm_resource_group.rg-dev.name
   storage_account_type = "Standard_LRS"
   tags = {
